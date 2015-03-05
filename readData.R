@@ -18,3 +18,7 @@ message( 'The file has already been downloaded, skipping')
 # Simply parsing and subsetting
 data <- read.csv(filename, sep=';', stringsAsFactors=FALSE)
 finalData <- subset(data, data$Date %in% c( "1/2/2007", "2/2/2007") & data$"Global_active_power" != "?")
+
+# Merging date and time
+finalData$Date <- as.Date(finalData$Date, '%d/%m/%y')
+finalData$DateTime <- as.POSIXct(paste(finalData$Date, finalData$Time, '%d/%m/%y %H:%M:%S'))
